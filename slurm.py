@@ -17,6 +17,13 @@ import os
 import subprocess
 import random
 
+def default_job():
+  task = {'mem_per_cpu':'4G', 'cpus':1, 'time':'2:0:0', 'job_name':'myjob', 'mailtype':'FAIL,TIME_LIMIT,STAGE_OUT'}
+  task['filename'] = 'slurm_{:03d}.sh'.format(random.randint(0,1000))
+  task['output'] = 'slurm_{:03d}.out'.format(random.randint(0,1000))
+  task['order'] = 'sbatch --parsable '+task['filename']
+  return task
+
 def send_sbatch(env_data):
   """
   This function creates and executes an sbatch script into SLURM
@@ -25,22 +32,32 @@ def send_sbatch(env_data):
   the jobid of the task
   """
   content = '#!/bin/bash\n'
+  def_data = default_job()
   if 'job_name' in env_data:
     content += '#SBATCH -J '+env_data['job_name']+'\n'
   else:
-    content += '#SBATCH -J myjob\n'
+    content += '#SBATCH -J '+def_data['job_name']+'\n'
   if 'cpus' in env_data:
     content += '#SBATCH -c '+str(env_data['cpus'])+'\n'
     if 'mem_cpu' in env_data:
       content += '#SBATCH --mem-per-cpu='+env_data['mem_cpu']+'\n'
     else:
-      content += '#SBATCH --mem-per-cpu=4G\n'
-  if 'time' in env_data: content += '#SBATCH --time='+env_data['time']+'\n'
+      content += '#SBATCH --mem-per-cpu='+def_data['mem_cpu']+'\n'
+  if 'time' in env_data: 
+    content += '#SBATCH --time='+env_data['time']+'\n'
+  else:
+    content += '#SBATCH --time='+def_data['time']+'\n'
   content += '#SBATCH --mail-user='+os.environ.get('USER')+'\n'
-  if 'output' in env_data: content += '#SBATCH -o '+env_data['output']+'-%j\n'
+  if 'output' in env_data: 
+    content += '#SBATCH -o '+env_data['output']+'-%j\n'
+  else:
+    content += '#SBATCH -o '+def_data['output']+'-%j\n'
   if 'partition' in env_data: content += '#SBATCH -p '+partition+'\n'
   if 'command' in env_data:
-    content += '#SBATCH --mail-type=FAIL,TIME_LIMIT,STAGE_OUT\n'
+    if 'mailtype' in env_data:
+      content += '#SBATCH --mail-type='+env_data['mailtype']+'\n'
+    else:
+      content += '#SBATCH --mail-type='+def_data['mailtype']+'\n'
     content += env_data['command']+'\n'
   else:
     content += '#SBATCH --mail-type=END\n'
@@ -48,13 +65,13 @@ def send_sbatch(env_data):
   if 'filename' in env_data:
     filename = env_data['filename']
   else:
-    filename = 'slurm{:03d}.sh'.format(random.randint(0,1000))
+    filename = def_data['filename']
   f = open(filename, 'w')
   f.write(content)
   f.close()
   if 'dependency' in env_data:
     order = ['sbatch --parsable --dependency='+env_data['dependency']+' '+filename]
   else:
-    order = ['sbatch --parsable '+filename]
+    order = def_data['order']
   return int(subprocess.check_output(order, shell=True))
 
