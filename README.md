@@ -54,7 +54,7 @@ for name in names:
 
 ### Dependencies
 
-Let's say you want to send a warning email after all your jobs finish. Then all you want to do is to define a new dictionary with some basic data and launch it.
+Let's say you want to send a warning email after all your jobs finish. Then all you want to do is to define a new dictionary with some basic data and launch it. Must important thing here is that *command* must be not defined
 
 ```
 wdata = {'job_name':'job_one', 'filename':working_dir+'warning_end.sh'}
