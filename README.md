@@ -28,6 +28,27 @@ The **send_batch()** function generates a script according with the supplied inf
 
 ## Usage
 
+First of all you need to import the function into your script
+
+```
+from slurm import send_sbatch
+```
+
+Now you define a dictionary with your desired environment,
+
+```
+cdata = {'time':'4:0:0', 'cpus':4, 'job_name':'job_one'}
+```
+
+and usually I fill other info inside a loop and launch it,
+
+```
+for name in names:
+  cdata['filename'] = working_dir+'/'+name+'.sh' # this is the filename of the sbatch script
+  cdata['output'] = working_dir+'/'+name+'.out' # this is where the output of the job is stored
+  cdata['command'] = 'pdftotext '+name+'.pdf '+name+'.txt' # this is what I want to run in parallel
+  send_sbatch(cdata)
+```
 
 
 ## Other info
