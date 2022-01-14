@@ -22,8 +22,13 @@ Only one function is intended to be used here, **send_sbatch()**. This function 
  - command
  - dependency
 
+Each of these keys corresponds to a directive for *sbatch* and the full set allows us to do a lot of things. The dictionary could be only partially defined. Actually you could use a completely empty dictionary as input. For the missing keys a constructor function is called so defaults values could be loaded. 
+
+The **send_batch()** function generates a script according with the supplied info and launch it. The output of the function is the *job_id* of the launched job, so you could use it to build a dependency for another job or just monitoring it.
 
 ## Usage
+
+
 
 ## Other info
 
