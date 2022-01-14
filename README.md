@@ -54,6 +54,16 @@ for name in names:
 
 ### Dependencies
 
+Let's say you want to send a warning email after all your jobs finish. Then all you want to do is to define a new dictionary with some basic data and launch it.
+
+```
+wdata = {'job_name':'job_one', 'filename':working_dir+'warning_end.sh'}
+send_sbatch(wdata)
+```
+
+
+
+
 ## Other info
 
 For other useful info (in spanish): https://detritus.fundacioace.com/wiki/doku.php?id=cluster:slurm.py 
