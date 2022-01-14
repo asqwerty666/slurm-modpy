@@ -28,6 +28,8 @@ The **send_batch()** function generates a script according with the supplied inf
 
 ## Usage
 
+### Basics
+
 First of all you need to import the function into your script
 
 ```
@@ -50,6 +52,7 @@ for name in names:
   send_sbatch(cdata)
 ```
 
+### Dependencies
 
 ## Other info
 
