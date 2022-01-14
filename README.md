@@ -42,7 +42,7 @@ Now you define a dictionary with your desired environment,
 cdata = {'time':'4:0:0', 'cpus':4, 'job_name':'job_one'}
 ```
 
-and usually I fill other info inside a loop and launch it,
+and ussually I fill other info inside a loop and launch it,
 
 ```
 for name in names:
