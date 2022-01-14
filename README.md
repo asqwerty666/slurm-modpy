@@ -9,7 +9,19 @@ By importing this python functions, a dictionary can previously defined and only
 
 ## Description
 
-Only one function is intended to be used here, **send_sbatch()**. This function takes a dictionary as argument with the data to run a given *sbatch* script.  
+Only one function is intended to be used here, **send_sbatch()**. This function takes a dictionary as argument with the data to run a given *sbatch* script. The keys of input dictionary should be a subset of:
+
+ - mem_per_cpu
+ - cpus
+ - time
+ - job_name
+ - mailtype
+ - partition
+ - filename
+ - output
+ - command
+ - dependency
+
 
 ## Usage
 
