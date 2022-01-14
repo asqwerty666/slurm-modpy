@@ -11,10 +11,10 @@ By importing this python functions, a dictionary can previously defined and only
 
 Only one function is intended to be used here, **send_sbatch()**. This function takes a dictionary as argument with the data to run a given *sbatch* script. The keys of input dictionary should be a subset of:
 
- - mem_per_cpu
+ - mem\_per\_cpu
  - cpus
  - time
- - job_name
+ - job\_name
  - mailtype
  - partition
  - filename
@@ -54,14 +54,12 @@ for name in names:
 
 ### Dependencies
 
-Let's say you want to send a warning email after all your jobs finish. Then all you want to do is to define a new dictionary with some basic data and launch it. Must important thing here is that *command* must be not defined
+Let's say you want to send a warning email after all your jobs finish. Then all you want to do is to define a new dictionary with some basic data and launch it. Must important thing here is that *command* must be not defined.
 
 ```
 wdata = {'job_name':'job_one', 'filename':working_dir+'warning_end.sh'}
 send_sbatch(wdata)
 ```
-
-
 
 
 ## Other info
