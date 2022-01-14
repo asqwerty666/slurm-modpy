@@ -30,7 +30,7 @@ The **send_batch()** function generates a script according with the supplied inf
 
 ### Basics
 
-First of all you need to import the function into your script
+First of all, you need to import the function into your script
 
 ```
 from slurm import send_sbatch
@@ -56,4 +56,4 @@ for name in names:
 
 ## Other info
 
-See (in spanish), for other usefull info: https://detritus.fundacioace.com/wiki/doku.php?id=cluster:slurm.py 
+For other useful info (in spanish): https://detritus.fundacioace.com/wiki/doku.php?id=cluster:slurm.py 
