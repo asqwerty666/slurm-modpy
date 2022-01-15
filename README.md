@@ -1,5 +1,5 @@
 # slurm-modpy
-Helper to launch slurm tasks with python scripts
+Helper to launch [slurm](https://slurm.schedmd.com/) tasks with python scripts
 
 ## General Purpose
 
