@@ -85,5 +85,6 @@ send_sbatch(cdata_end)
 ```
 
 ## Other info
+ 
+ - [sbatch manpage](https://slurm.schedmd.com/sbatch.html)
 
-For other useful info (in spanish): https://detritus.fundacioace.com/wiki/doku.php?id=cluster:slurm.py 
