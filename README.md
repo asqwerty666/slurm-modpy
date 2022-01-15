@@ -62,7 +62,7 @@ send_sbatch(wdata)
 ```
 Notice that if no *command* is especified the *sbatch* will do nothing but send an email at the end. 
 
-But in general, the dependencies mechanism of slurm birngs a very rich dynamics that can be used here. By example,
+But in general, the dependencies mechanism of slurm brings a very rich dynamics that can be used here. By example,
 
 ``` 
 p = send_sbatch(cdata)
