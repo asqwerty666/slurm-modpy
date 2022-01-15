@@ -57,10 +57,32 @@ for name in names:
 Let's say you want to send a warning email after all your jobs finish. Then all you want to do is to define a new dictionary with some basic data and launch it. Must important thing here is that *command* must be not defined.
 
 ```
-wdata = {'job_name':'job_one', 'filename':working_dir+'warning_end.sh'}
+wdata = {'job_name':'job_one', 'filename':working_dir+'warning_end.sh', 'dependency':'singleton'}
 send_sbatch(wdata)
 ```
+Notice that if no *command* is especified the *sbatch* will do nothing but send an email at the end. 
 
+But in general, the dependencies mechanism of slurm birngs a very rich dynamics that can be used here. By example,
+
+``` 
+p = send_sbatch(cdata)
+cdata2['dependency'] = 'afterok:'+p
+send_sbatch(cdata2)
+```
+
+will execute the second *sbatch* script after the finalization of the first one. Or you can send some scripts and execute another one after them,
+
+```
+pids = []
+p = send_sbatch(cdata1)
+pids.append(p)
+p = send_sbatch(cdata2)
+pids.append(p)
+...
+deps = ','.join(map(str,pids))
+cdata_end['dependency'] = 'afterok:'+deps
+send_sbatch(cdata_end)
+```
 
 ## Other info
 
