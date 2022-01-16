@@ -7,6 +7,11 @@ The use of SLURM tools like *sbatch* is quite easy but tedious. In order to exec
 
 By importing this python functions, a dictionary can previously defined and only the parts that change inside the loop should be redefined any time. Also, I hope the use of dependencies could be as easy as when using *sbatch* directives. In fact the use of a swarm of *sbatch* scripts followed by a warning email job is a lot short when this script is used.
 
+This was built intentionaly avoiding the object oriented programming thinking in,
+
+  1. Give to absolute begginers, on both python and slurm, the posibiliy of messing with the code
+  2. This should be a door to cluster programming so you should really think what you want
+
 ## Description
 
 Only one function is intended to be used here, **send_sbatch()**. This function takes a dictionary as argument with the data to run a given *sbatch* script. The keys of input dictionary should be a subset of:
@@ -87,4 +92,9 @@ send_sbatch(cdata_end)
 ## Other info
  
  - [sbatch manpage](https://slurm.schedmd.com/sbatch.html)
+
+
+## Related (and higly superior) projects
+
+ - [simple\_slurm](https://github.com/amq92/simple_slurm)
 
