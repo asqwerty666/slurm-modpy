@@ -94,7 +94,7 @@ send_sbatch(cdata_end)
  - [sbatch manpage](https://slurm.schedmd.com/sbatch.html)
 
 
-## Related (and higly superior) projects
+## Related (and highly superior) projects
 
  - [simple\_slurm](https://github.com/amq92/simple_slurm)
 
