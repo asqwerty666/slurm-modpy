@@ -9,7 +9,7 @@ By importing this python functions, a dictionary can previously defined and only
 
 This was built intentionaly avoiding the object oriented programming thinking in,
 
-  1. Give to absolute begginers, on both python and slurm, the posibiliy of messing with the code
+  1. Give to absolute begginers, on both python and slurm, the possibility of messing with the code
   2. This should be a door to cluster programming so you should really think what you want
 
 ## Description
