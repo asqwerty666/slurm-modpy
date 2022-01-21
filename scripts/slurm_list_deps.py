@@ -1,22 +1,32 @@
-#!/usr/bin/python3
- 
+#!/usr/bin/env python
 import sys
-import os
-from slurm import send_sbatch 
+import os 
+import re
 
-jtime = '3:0:0'
+from slurm import send_sbatch
+
+time = '3:0:0'
 cpus = 4
 
 ifile = str(sys.argv[1])
 wdir = 'slurm'
 if not os.path.isdir(wdir): os.mkdir(wdir)
 count = 0
+precedence = 1
 ljob = {'job_name':ifile, 'cpus':cpus, 'mem_per_cpu':'4G', 'time':jtime, 'output':wdir+'/'+ifile+'order-%j', 'mailtype':'FAIL,TIME_LIMIT,STAGE_OUT'}
+
 with open(ifile, 'r') as orf:
   for line in orf:
     count+=1
+    order = re.search(r"(\d+):(.*)", line)
+    norder = int(order.group(1))
     ljob['filename'] = wdir+'/sorder_{:04d}'.format(count)+'.sh'
-    ljob['command'] = line
-    send_sbatch(ljob)
+    ljob['command'] = order.group(2)
+    if norder > precedence:
+      ljob['dependency'] = 'afterok:'+str(jobid)
+    else:
+      ljob['dependency'] = ''
+    jobid = send_sbatch(ljob)
 ejob = {'job_name':ifile, 'output':wdir+'/'+ifile+'end-%j', 'filename':wdir+'/sorder_end.sh'}
-send_sbatch(ejob)
+send_sbatch(ejob)    precedence = norder
+
