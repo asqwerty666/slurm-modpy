@@ -5,7 +5,7 @@ import re
 
 from slurm import send_sbatch
 
-time = '3:0:0'
+jtime = '3:0:0'
 cpus = 4
 
 ifile = str(sys.argv[1])
