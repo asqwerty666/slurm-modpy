@@ -25,7 +25,7 @@ with open(ifile, 'r') as orf:
     if norder > precedence:
       ljob['dependency'] = 'afterok:'+str(jobid)
     else:
-      ljob['dependency'] = ''
+      ljob.pop('dependency', None)
     jobid = send_sbatch(ljob)
 ejob = {'job_name':ifile, 'output':wdir+'/'+ifile+'end-%j', 'filename':wdir+'/sorder_end.sh'}
 send_sbatch(ejob)    precedence = norder
