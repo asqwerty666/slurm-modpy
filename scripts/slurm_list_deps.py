@@ -27,6 +27,8 @@ with open(ifile, 'r') as orf:
     else:
       ljob.pop('dependency', None)
     jobid = send_sbatch(ljob)
-ejob = {'job_name':ifile, 'output':wdir+'/'+ifile+'end-%j', 'filename':wdir+'/sorder_end.sh'}
-send_sbatch(ejob)    precedence = norder
+    precedence = norder
+ejob = {'job_name':ifile, 'output':wdir+'/'+ifile+'end-%j', 'filename':wdir+'/sorder_end.sh', 'dependency':'singleton'}
+send_sbatch(ejob)
+
 

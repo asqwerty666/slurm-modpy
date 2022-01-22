@@ -18,5 +18,5 @@ with open(ifile, 'r') as orf:
     ljob['filename'] = wdir+'/sorder_{:04d}'.format(count)+'.sh'
     ljob['command'] = line
     send_sbatch(ljob)
-ejob = {'job_name':ifile, 'output':wdir+'/'+ifile+'end-%j', 'filename':wdir+'/sorder_end.sh'}
+ejob = {'job_name':ifile, 'output':wdir+'/'+ifile+'end-%j', 'filename':wdir+'/sorder_end.sh', 'dependency':'singleton'}
 send_sbatch(ejob)
