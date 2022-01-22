@@ -71,7 +71,7 @@ But in general, the dependencies mechanism of slurm brings a very rich dynamics 
 
 ``` 
 p = send_sbatch(cdata)
-cdata2['dependency'] = 'afterok:'+p
+cdata2['dependency'] = 'afterok:'+str(p)
 send_sbatch(cdata2)
 ```
 
