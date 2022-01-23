@@ -7,13 +7,14 @@ from slurm import send_sbatch
 
 jtime = '3:0:0'
 cpus = 4
+mem_per_cpu = '4G'
 
 ifile = str(sys.argv[1])
 wdir = 'slurm'
 if not os.path.isdir(wdir): os.mkdir(wdir)
 count = 0
 precedence = 1
-ljob = {'job_name':ifile, 'cpus':cpus, 'mem_per_cpu':'4G', 'time':jtime, 'output':wdir+'/'+ifile+'order-%j', 'mailtype':'FAIL,TIME_LIMIT,STAGE_OUT'}
+ljob = {'job_name':ifile, 'cpus':cpus, 'mem_per_cpu':mem_per_cpu, 'time':jtime, 'output':wdir+'/'+ifile+'order-%j', 'mailtype':'FAIL,TIME_LIMIT,STAGE_OUT'}
 
 with open(ifile, 'r') as orf:
   for line in orf:
