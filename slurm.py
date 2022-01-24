@@ -52,7 +52,8 @@ def send_sbatch(env_data):
     content += '#SBATCH -o '+env_data['output']+'-%j\n'
   else:
     content += '#SBATCH -o '+def_data['output']+'-%j\n'
-  if 'partition' in env_data: content += '#SBATCH -p '+partition+'\n'
+  if 'partition' in env_data: content += '#SBATCH -p '+ienv_data['partition']+'\n'
+  if 'gres' in env_data: content += '#SBATCH --gres='+env_data['gres']+'\n'
   if 'command' in env_data:
     if 'mailtype' in env_data:
       content += '#SBATCH --mail-type='+env_data['mailtype']+'\n'
