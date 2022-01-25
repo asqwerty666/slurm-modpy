@@ -43,6 +43,7 @@ def send_sbatch(env_data):
       content += '#SBATCH --mem-per-cpu='+env_data['mem_cpu']+'\n'
     else:
       content += '#SBATCH --mem-per-cpu='+def_data['mem_cpu']+'\n'
+  if 'ntask_node' in env_data: content += '#SBATCH --ntaks-per-node='+env_data['ntask_node']+'\n'
   if 'time' in env_data: 
     content += '#SBATCH --time='+env_data['time']+'\n'
   else:
@@ -73,6 +74,9 @@ def send_sbatch(env_data):
   if 'dependency' in env_data:
     order = ['sbatch --parsable --dependency='+env_data['dependency']+' '+filename]
   else:
-    order = def_data['order']
+    if 'filename' in env_data:
+      order = 'sbatch --parsable '+env_data['filename']
+    else:
+      order = def_data['order']
   return int(subprocess.check_output(order, shell=True))
 

@@ -29,4 +29,4 @@ This new scripts also reads a file with a list of orders but with dependencies. 
 1:whatever_i_want
 ```
 
-where the first number shows the job precedence, meaning that the *grep* command should be executed only after the *cp* commands finish. However the last command is not related to anything and is executed at the same time that the first one.
+where the first number shows the job precedence, meaning that the *grep* command should be executed only after the *cp* commands finish. However the last command is not related to anything and is executed at the same time than the first one.
