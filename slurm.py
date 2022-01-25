@@ -75,7 +75,7 @@ def send_sbatch(env_data):
     order = ['sbatch --parsable --dependency='+env_data['dependency']+' '+filename]
   else:
     if 'filename' in env_data:
-      order = 'sbatch --parsable '+env_data['filename']
+      order = 'sbatch --parsable '+filename
     else:
       order = def_data['order']
   return int(subprocess.check_output(order, shell=True))
