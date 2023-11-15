@@ -80,11 +80,8 @@ def send_sbatch(env_data):
       order = 'sbatch --parsable '+filename
     else:
       order = def_data['order']
-  if 'test' in env_data:
-      if env_data['test']:
-          return 0
-      else:
-          return int(subprocess.check_output(order, shell=True))
+  if 'test' in env_data and env_data['test']:
+    return 0
   else:
     return int(subprocess.check_output(order, shell=True))
 
