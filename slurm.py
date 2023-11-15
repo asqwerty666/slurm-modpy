@@ -39,6 +39,8 @@ def send_sbatch(env_data):
     content += '#SBATCH -J '+def_data['job_name']+'\n'
   if 'cpus' in env_data:
     content += '#SBATCH -c '+str(env_data['cpus'])+'\n'
+    if 'mem-per-cpu' in env_data:
+        env_data['mem_cpu'] = env_data['mem-per-cpu']
     if 'mem_cpu' in env_data:
       content += '#SBATCH --mem-per-cpu='+env_data['mem_cpu']+'\n'
     else:
@@ -53,7 +55,7 @@ def send_sbatch(env_data):
     content += '#SBATCH -o '+env_data['output']+'-%j\n'
   else:
     content += '#SBATCH -o '+def_data['output']+'-%j\n'
-  if 'partition' in env_data: content += '#SBATCH -p '+ienv_data['partition']+'\n'
+  if 'partition' in env_data: content += '#SBATCH -p '+env_data['partition']+'\n'
   if 'gres' in env_data: content += '#SBATCH --gres='+env_data['gres']+'\n'
   if 'command' in env_data:
     if 'mailtype' in env_data:
@@ -78,5 +80,11 @@ def send_sbatch(env_data):
       order = 'sbatch --parsable '+filename
     else:
       order = def_data['order']
-  return int(subprocess.check_output(order, shell=True))
+  if 'test' in env_data:
+      if env_data['test']:
+          return 0
+      else:
+          return int(subprocess.check_output(order, shell=True))
+  else:
+    return int(subprocess.check_output(order, shell=True))
 
