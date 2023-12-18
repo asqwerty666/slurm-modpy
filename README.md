@@ -16,7 +16,7 @@ This was built intentionaly avoiding the object oriented programming thinking in
 
 Only one function is intended to be used here, **send_sbatch()**. This function takes a dictionary as argument with the data to run a given *sbatch* script. The keys of input dictionary should be a subset of:
 
- - mem\_per\_cpu
+ - mem\_cpu
  - cpus
  - time
  - job\_name
@@ -28,8 +28,9 @@ Only one function is intended to be used here, **send_sbatch()**. This function 
  - dependency
 
 Each of these keys corresponds to a directive for *sbatch* and the full set allows us to do a lot of things. The dictionary could be only partially defined. Actually you could use a completely empty dictionary as input. For the missing keys a constructor function is called so defaults values could be loaded. 
-
 The **send_batch()** function generates a script according with the supplied info and launch it. The output of the function is the *job_id* of the launched job, so you could use it to build a dependency for another job or just monitoring it.
+
+Aditionally, if the input dictionary include a **True** value for the key *test*, the slurm scripts are wrote to disk but not executed. Note that the default value for testing is **False**.
 
 ## Usage
 
@@ -56,6 +57,22 @@ for name in names:
   cdata['command'] = 'pdftotext '+name+'.pdf '+name+'.txt' # this is what I want to run in parallel
   send_sbatch(cdata)
 ```
+
+Also, as explained before, the code,
+
+```
+cdata['test'] = 1
+send_sbatch(cdata)
+``` 
+
+write the slurm script to disk but don't send them to the queue. This way we can easily switch from testing to production by only asigning a **False** value under the *test* key (or erasing it!). That is,
+
+```
+cdata['test'] = 0
+send_sbatch(cdata)
+```
+
+will ignore the *test* key and will send the slurm scripts to the queue.
 
 ### Dependencies
 
